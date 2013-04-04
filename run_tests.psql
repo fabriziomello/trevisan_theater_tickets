@@ -1,0 +1,10 @@
+BEGIN;
+	\i test/test.sql
+	\i src/schema.sql
+
+	\i test/test_schema.sql
+
+	/* Exibe resultados dos testes */
+	SELECT *
+	  FROM test.results;
+ROLLBACK;
