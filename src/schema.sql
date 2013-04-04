@@ -79,7 +79,7 @@ $$
 		CASE
 			-- Student Card is Used?
 			WHEN $3 IS TRUE AND $1 NOT IN ('Domingo', 'Sábado') THEN
-				35.00
+				35.00::ticket_discount
 			ELSE
 				(SELECT discount
 		  		   FROM theater_dojo.ticket_discount_table

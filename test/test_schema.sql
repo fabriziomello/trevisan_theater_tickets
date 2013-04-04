@@ -15,36 +15,36 @@ SELECT test.add_assert_equals(
 		);
 
 SELECT test.add_assert_equals(
-			E'Verifica se tabela \"ticket_price\" existe',
+			E'Verifica se tabela \"ticket_price_table\" existe',
   			TRUE,
-			EXISTS(SELECT 1 FROM pg_class WHERE relname = 'ticket_price' AND relkind = 'r'),
-			E'Tabela \"ticket_price\" não existe'
+			EXISTS(SELECT 1 FROM pg_class WHERE relname = 'ticket_price_table' AND relkind = 'r'),
+			E'Tabela \"ticket_price_table\" não existe'
 		);
 
 SELECT test.add_assert_equals(
-			E'Verifica se tabela \"ticket_discount\" existe',
+			E'Verifica se tabela \"ticket_discount_table\" existe',
   			TRUE,
-			EXISTS(SELECT 1 FROM pg_class WHERE relname = 'ticket_discount' AND relkind = 'r'),
-			E'Tabela \"ticket_discount\" não existe'
+			EXISTS(SELECT 1 FROM pg_class WHERE relname = 'ticket_discount_table' AND relkind = 'r'),
+			E'Tabela \"ticket_discount_table\" não existe'
 		);
 
 SELECT test.add_assert_equals(
 			E'Verifica valor dos ingressos para Crianças',
-  			5.5,
+  			5.5::ticket_price,
 			getTicketPrice('Criança'),
 			E'Valor do ingresso esperado era de %s mas foi retornado %s'
 		);
 
 SELECT test.add_assert_equals(
 			E'Verifica valor dos ingressos para Estudantes',
-  			8.00,
+  			8.00::ticket_price,
 			getTicketPrice('Estudante'),
 			E'Valor do ingresso esperado era de %s mas foi retornado %s'
 		);
 
 SELECT test.add_assert_equals(
 			E'Verifica valor dos ingressos para Idosos',
-  			6.00,
+  			6.00::ticket_price,
 			getTicketPrice('Idoso'),
 			E'Valor do ingresso esperado era de %s mas foi retornado %s'
 		);
@@ -58,14 +58,14 @@ SELECT test.add_assert_equals(
 
 SELECT test.add_assert_equals(
 			E'Verifica desconto dos ingressos para Idosos aos Domingos',
-  			5.00,
+  			5.00::ticket_discount,
 			getTicketDiscount('Domingo', 'Idoso'),
 			E'Valor do desconto esperado era de %s mas foi retornado %s'
 		);
 
 SELECT test.add_assert_equals(
 			E'Verifica desconto dos ingressos para Estudantes as Terças',
-  			5.00,
+  			5.00::ticket_discount,
 			getTicketDiscount('Terça', 'Estudante'),
 			E'Valor do desconto esperado era de %s mas foi retornado %s'
 		);
@@ -79,14 +79,14 @@ SELECT test.add_assert_equals(
 
 SELECT test.add_assert_equals(
 			E'Verifica desconto dos ingressos apresentando Carteira de Estudante as Quartas',
-  			35.00,
+  			35.00::ticket_discount,
 			getTicketDiscount('Quarta', 'Idoso', TRUE),
 			E'Valor do desconto esperado era de %s mas foi retornado %s'
 		);
 
 SELECT test.add_assert_equals(
 			E'Verifica desconto dos ingressos apresentando Carteira de Estudante as Sextas',
-  			35.00,
+  			35.00::ticket_discount,
 			getTicketDiscount('Sexta', 'Estudante', TRUE),
 			E'Valor do desconto esperado era de %s mas foi retornado %s'
 		);
